@@ -55,8 +55,8 @@
                                 <td><span class="user-profile"><img @if(getFirstMediaUrl($user,$user->avatarCollection)!=null) src="{{getFirstMediaUrl($user,$user->avatarCollection)}}" @else src="{{asset('logos/user_logo.png')}}" @endif class="img-circle" alt="user avatar"></span> {{$user->first_name}} {{$user->last_name}}</td>
                                 <td>{{$user->email}}</td>
                                
-                                <td>{{$user->phone}}</td>
-                                <td>{{$user->salary}}</td>
+                                <td>{{$user->phone?$user->phone:'_'}}</td>
+                                <td>{{$user->salary?$user->salary:'_'}}</td>
                                 <td>{{$user->manager_name}}</td>
                                 <td>{{$user->roles->first()->name}}</td>
                                 
