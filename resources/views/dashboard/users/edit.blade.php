@@ -96,7 +96,8 @@
                       </div>
                       <div class="form-group">
                         <label>Image</label>
-                        <input type="file" name="image" class="form-control"  placeholder="Enter Password">
+                        <input type="file" name="image" class="form-control" id="imageInput" placeholder="Choose Image" onchange="showImage(event)">
+                        <img id="imagePreview" class="img-thumbnail" src="{{$user->image}}" alt="Selected Image" style="@if($user->image==null) display: none; @endif height:100px;">
                         @if ($errors->has('image'))
                             <p class="text-error more-info-err" style="color: red;">
                                 {{ $errors->first('image') }}</p>
@@ -118,6 +119,24 @@
 @endsection
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  function showImage(event) {
+      var imageInput = event.target;
+      var imagePreview = document.getElementById('imagePreview');
+      
+  
+      if (imageInput.files && imageInput.files[0]) {
+          var reader = new FileReader();
+  
+          reader.onload = function(e) {
+              imagePreview.src = e.target.result;
+              imagePreview.style.display = 'block';
+          }
+  
+          reader.readAsDataURL(imageInput.files[0]);
+      }
+  }
+  </script>
 <script>
   $(document).ready(function() {
     // Function to handle the visibility of manager_div

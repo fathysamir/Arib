@@ -108,6 +108,7 @@ class UserController extends Controller
 
     public function edit($id){
         $user=User::where('id',$id)->first();
+        $user->image = getFirstMediaUrl($user,$user->avatarCollection);;
         $departments=Department::where('is_active',1)->get();
         $roles=Role::all();
         $managers= User::role('Manager')->where('id','!=',$id)->get();
