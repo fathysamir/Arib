@@ -12,7 +12,7 @@ class InstallProject extends Command
 
     public function handle()
     {
-        $this->info('Installing MY Cash project...');
+        $this->info('Installing Arib project...');
 
         // Run migrations
         Artisan::call('migrate', ['--force' => true]);
