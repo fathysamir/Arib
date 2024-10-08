@@ -49,6 +49,7 @@ Route::group(['middleware' => ['authenticate']], function () {
         Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('edit.user');
         Route::post('/user/update/{id}', [UserController::class, 'update'])->name('update.user');
         Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('delete.user');
+        Route::get('/fetch-managers', [UserController::class, 'fetch_managers'])->name('fetch.managers');
         //////////////////////////////////////////
         Route::any('/departments', [DepartmentController::class, 'index_departments'])->name('departments'); 
         Route::get('/departments/create', [DepartmentController::class, 'create_department'])->name('add.department');

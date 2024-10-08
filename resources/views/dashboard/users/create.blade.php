@@ -137,15 +137,46 @@
   $(document).ready(function() {
     // Function to handle the visibility of manager_div
     function toggleManagerDiv() {
-      var selectedRoleText = $('select[name="role"] option:selected').text(); // Get selected option text
-      if (selectedRoleText === "Employee") {
-        $('#manager_div').show(); // Show the Manager div
+      var selectedRoleText = $('select[name="role"] option:selected').text();
+      var selectedDepartment = $('select[name="department"]').val(); // Get selected option text
+      if (selectedRoleText === "Employee" && selectedDepartment !== "") {
+        $('#manager_div').show();
+        fetchManagers(selectedDepartment); // Show the Manager div
       } else {
         $('#manager_div').hide(); // Hide the Manager div
-        $('#manager_div select').val(''); // Clear the Manager dropdown value
+        $('#manager_div select').empty().append('<option value="">Select Manager</option>'); // Clear the Manager dropdown value
       }
     }
+    function fetchManagers(selectedDepartment) {
+        $.ajax({
+            url: '/fetch-managers',
+            type: 'GET',
+            data: {
+                department: selectedDepartment
+            },
+            success: function(data) {
+                var managers = data.managers;
+                var managerSelect = $('#manager_div select');
 
+                managerSelect.empty().append('<option value="">Select Manager</option>');
+
+                managers.forEach(function(manager) {
+                    managerSelect.append('<option value="' + manager.id + '">' + manager.first_name + ' ' + manager.last_name + '</option>');
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+    $('select[name="department"]').on('change', function() {
+        var selectedRoleText = $('select[name="role"] option:selected').text();
+        var selectedDepartment = $(this).val();
+
+        if (selectedRoleText === "Employee" && selectedDepartment !== "") {
+          fetchManagers(selectedDepartment);
+        }
+    });
     // On page load
     toggleManagerDiv();
 

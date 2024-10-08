@@ -171,4 +171,14 @@ class UserController extends Controller
         User::where('id', $id)->delete();
         return redirect('/users')->with('success', 'User deleted successfully.');;
     }
+
+
+    public function fetch_managers(Request $request)
+    {
+        $managers = User::where('department_id', $request->department)->whereHas('roles',function($q){
+            $q->where('name','Manager');
+        })->get();
+
+        return response()->json(['managers' => $managers]);
+    }
 }
