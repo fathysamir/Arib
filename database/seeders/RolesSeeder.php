@@ -92,7 +92,7 @@ class RolesSeeder extends Seeder
             'email' => 'admin@gmail.com',
             
             'phone' => null,
-            'theme' =>'theme1',
+            'theme' =>'theme8',
             'password' => Hash::make('GMadmin159!48@26#1'),
         ]);
         
